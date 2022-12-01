@@ -1,14 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Input;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MemoStack.Repository;
 using MemoStack.UseCase;
 
 namespace MemoStack.ViewModel;
 
-public class MainViewModel : IMainViewModel
+public class MainViewModel : ObservableObject, IMainViewModel
 {
     private readonly Stack<MemoModel> _stack;
+    private ICommand? _createMemoCommand;
+    private MemoModel _poppedMemoModel;
 
     public MainViewModel()
     {
@@ -25,7 +28,20 @@ public class MainViewModel : IMainViewModel
         useCase.Invoke(model);
     });
 
-    public MemoModel PoppedMemoModel { get; }
-    public ICommand CreateMemoCommand { get; }
+    public MemoModel PoppedMemoModel
+    {
+        get => _poppedMemoModel;
+        private set => SetProperty(ref _poppedMemoModel, value);
+    }
+
+    public ICommand CreateMemoCommand =>
+        _createMemoCommand ??= new RelayCommand(() =>
+        {
+            _stack.Push(PoppedMemoModel);
+            using var repository = new MemoContext();
+            var useCase = new CreateMemoUseCase(repository);
+            PoppedMemoModel = useCase.Invoke(_stack);
+        });
+
     public ICommand DeleteMemoCommand { get; }
 }
