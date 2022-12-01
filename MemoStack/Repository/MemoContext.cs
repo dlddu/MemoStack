@@ -11,7 +11,7 @@ public class MemoContext : DbContext, IRepository
 {
     private readonly string _dbPath = Path.Join(".", "memo.db");
 
-    public DbSet<MemoModel> MemoModels { get; set; }
+    public DbSet<MemoModel> MemoModels { get; set; } = null!;
 
     public IEnumerable<MemoModel> GetMemos()
     {
