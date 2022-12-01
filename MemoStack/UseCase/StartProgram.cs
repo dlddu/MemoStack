@@ -6,6 +6,7 @@ namespace MemoStack.UseCase;
 public interface IRepository
 {
     IEnumerable<MemoModel> GetMemos();
+    void UpdateMemo(MemoModel model);
 }
 
 public class MemoModel

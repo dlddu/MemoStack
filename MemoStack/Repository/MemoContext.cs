@@ -17,6 +17,12 @@ public class MemoContext : DbContext, IRepository
         return MemoModels.ToList();
     }
 
+    public void UpdateMemo(MemoModel model)
+    {
+        Update(model);
+        SaveChanges();
+    }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseSqlite($"Data Source={_dbPath}");
