@@ -1,4 +1,6 @@
-﻿namespace MemoStack.UseCase;
+﻿using MemoStack.Model;
+
+namespace MemoStack.UseCase;
 
 public class DeleteMemoUseCase
 {

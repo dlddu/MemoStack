@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using MemoStack.Model;
 
 namespace MemoStack.UseCase;
 

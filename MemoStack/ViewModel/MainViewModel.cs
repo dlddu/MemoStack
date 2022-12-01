@@ -2,6 +2,7 @@
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using MemoStack.Model;
 using MemoStack.Repository;
 using MemoStack.UseCase;
 

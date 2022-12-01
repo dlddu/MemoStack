@@ -1,5 +1,5 @@
 ﻿using System.Windows.Input;
-using MemoStack.UseCase;
+using MemoStack.Model;
 
 namespace MemoStack;
 
