@@ -8,10 +8,17 @@ namespace MemoStack;
 /// </summary>
 public partial class MainWindow : Window
 {
+    private readonly MainViewModel _viewModel = new();
+
     public MainWindow()
     {
         InitializeComponent();
 
-        DataContext = new MainViewModel();
+        DataContext = _viewModel;
+    }
+
+    private void UIElement_OnLostFocus(object sender, RoutedEventArgs e)
+    {
+        _viewModel.SaveMemoCommand.Execute(_viewModel.PoppedMemoModel);
     }
 }

@@ -16,6 +16,7 @@ public class MainViewModel : IMainViewModel
         PoppedMemoModel = _stack.TryPop(out var memoModel) ? memoModel : new MemoModel(string.Empty, 0);
     }
 
+    public ICommand SaveMemoCommand { get; }
     public MemoModel PoppedMemoModel { get; }
     public ICommand CreateMemoCommand { get; }
     public ICommand DeleteMemoCommand { get; }
