@@ -16,8 +16,9 @@ public class MemoModel
         Depth = depth;
     }
 
+    public long Id { get; init; }
     public string Text { get; set; }
-    internal int Depth { get; set; }
+    public int Depth { get; set; }
 }
 
 public class StartProgramUseCase
