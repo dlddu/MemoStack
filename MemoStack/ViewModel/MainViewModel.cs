@@ -14,6 +14,7 @@ public class MainViewModel : ObservableObject, IMainViewModel
     private ICommand? _createMemoCommand;
     private ICommand? _deleteMemoCommand;
     private MemoModel _poppedMemoModel;
+    private ICommand? _saveMemoCommand;
 
     public MainViewModel()
     {
@@ -22,13 +23,13 @@ public class MainViewModel : ObservableObject, IMainViewModel
         PoppedMemoModel = _stack.TryPop(out var memoModel) ? memoModel : new MemoModel(string.Empty, 0);
     }
 
-    public ICommand SaveMemoCommand { get; } = new RelayCommand<MemoModel>(model =>
-    {
-        if (model == null) return;
-        using var repository = new MemoContext();
-        var useCase = new SaveMemoUseCase(repository);
-        useCase.Invoke(model);
-    });
+    public ICommand SaveMemoCommand =>
+        _saveMemoCommand ??= new RelayCommand(() =>
+        {
+            using var repository = new MemoContext();
+            var useCase = new SaveMemoUseCase(repository);
+            useCase.Invoke(PoppedMemoModel);
+        });
 
     public MemoModel PoppedMemoModel
     {
