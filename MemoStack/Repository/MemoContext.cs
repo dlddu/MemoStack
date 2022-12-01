@@ -23,6 +23,17 @@ public class MemoContext : DbContext, IRepository
         SaveChanges();
     }
 
+    public void DeleteMemo(MemoModel model)
+    {
+        Remove(model);
+        SaveChanges();
+    }
+
+    public bool Exists(MemoModel model)
+    {
+        return MemoModels.Any(m => m == model);
+    }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseSqlite($"Data Source={_dbPath}");

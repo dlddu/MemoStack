@@ -11,6 +11,7 @@ public class MainViewModel : ObservableObject, IMainViewModel
 {
     private readonly Stack<MemoModel> _stack;
     private ICommand? _createMemoCommand;
+    private ICommand? _deleteMemoCommand;
     private MemoModel _poppedMemoModel;
 
     public MainViewModel()
@@ -43,5 +44,12 @@ public class MainViewModel : ObservableObject, IMainViewModel
             PoppedMemoModel = useCase.Invoke(_stack);
         });
 
-    public ICommand DeleteMemoCommand { get; }
+    public ICommand DeleteMemoCommand =>
+        _deleteMemoCommand ??= new RelayCommand(() =>
+        {
+            using var repository = new MemoContext();
+            var useCase = new DeleteMemoUseCase(repository);
+            useCase.Invoke(PoppedMemoModel);
+            PoppedMemoModel = _stack.TryPop(out var model) ? model : new MemoModel(string.Empty, 0);
+        });
 }
