@@ -20,7 +20,7 @@ public class MainViewModel : ObservableObject, IMainViewModel
     {
         using var repository = new MemoContext();
         _stack = new StartProgramUseCase(repository).Invoke();
-        PoppedMemoModel = _stack.TryPop(out var memoModel) ? memoModel : new MemoModel(string.Empty, 0);
+        _poppedMemoModel = _stack.TryPop(out var memoModel) ? memoModel : new MemoModel(string.Empty, 0);
     }
 
     public ICommand SaveMemoCommand =>
