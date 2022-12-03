@@ -13,12 +13,8 @@ public class StartProgramUseCase
         _repository = repository;
     }
 
-    public Stack<MemoModel> Invoke()
+    public IEnumerable<MemoModel> Invoke()
     {
-        var memos = _repository.GetMemos().ToList();
-        var stack = new Stack<MemoModel>(memos.Count);
-        foreach (var memo in memos.OrderBy(memo => memo.Depth)) stack.Push(memo);
-
-        return stack;
+        return _repository.GetMemos().OrderBy(model => model.Depth);
     }
 }

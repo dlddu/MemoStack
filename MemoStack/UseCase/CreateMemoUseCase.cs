@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using MemoStack.Model;
 
 namespace MemoStack.UseCase;
@@ -12,9 +13,9 @@ public class CreateMemoUseCase
         _repository = repository;
     }
 
-    public MemoModel Invoke(Stack<MemoModel> memoModels)
+    public MemoModel Invoke(IEnumerable<MemoModel> memoModels)
     {
-        var peek = memoModels.Peek();
+        var peek = memoModels.Last();
         _repository.UpdateMemo(peek);
         var currentDepth = peek.Depth;
         var newModel = new MemoModel(string.Empty, currentDepth + 1);

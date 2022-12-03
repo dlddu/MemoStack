@@ -4,18 +4,35 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:memoStack="clr-namespace:MemoStack"
+        xmlns:model="clr-namespace:MemoStack.Model"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
         d:DataContext="{d:DesignInstance memoStack:IMainViewModel}">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
 
-        <TextBox Grid.Row="0" Text="{Binding PoppedMemoModel.Text, UpdateSourceTrigger=PropertyChanged}"
-                 LostFocus="UIElement_OnLostFocus" />
-        <Button Grid.Row="1" Content="추가" HorizontalAlignment="Right" Command="{Binding CreateMemoCommand}" />
-        <Button Grid.Row="1" Content="삭제" HorizontalAlignment="Left" Command="{Binding DeleteMemoCommand}" />
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <ListBox Grid.Column="0" ItemsSource="{Binding ObservableStack}" Width="100">
+            <ListBox.ItemTemplate>
+                <DataTemplate DataType="{x:Type model:MemoModel}">
+                    <Label Content="{Binding Text}" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <TextBox Grid.Row="0" Text="{Binding PoppedMemoModel.Text, UpdateSourceTrigger=PropertyChanged}"
+                     LostFocus="UIElement_OnLostFocus" />
+            <Button Grid.Row="1" Content="추가" HorizontalAlignment="Right" Command="{Binding CreateMemoCommand}" />
+            <Button Grid.Row="1" Content="삭제" HorizontalAlignment="Left" Command="{Binding DeleteMemoCommand}" />
+        </Grid>
     </Grid>
 </Window>
