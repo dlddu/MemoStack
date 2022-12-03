@@ -20,12 +20,12 @@ public partial class MainWindow
 
     private void UIElement_OnLostFocus(object sender, RoutedEventArgs e)
     {
-        _viewModel.SaveMemoCommand.Execute(_viewModel.PoppedMemoModel);
+        _viewModel.SaveMemoCommand.Execute(null);
     }
 
     protected override void OnClosed(EventArgs e)
     {
         base.OnClosed(e);
-        _viewModel.SaveMemoCommand.Execute(_viewModel.PoppedMemoModel);
+        _viewModel.SaveMemoCommand.Execute(null);
     }
 }
