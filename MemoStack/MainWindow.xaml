@@ -9,6 +9,11 @@
         Title="MainWindow" Height="450" Width="800"
         d:DataContext="{d:DesignInstance memoStack:IMainViewModel}">
 
+    <Window.InputBindings>
+        <KeyBinding Key="Enter" Modifiers="Control" Command="{Binding CreateMemoCommand}" />
+        <KeyBinding Key="Delete" Modifiers="Control+Shift" Command="{Binding DeleteMemoCommand}" />
+    </Window.InputBindings>
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
