@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using MemoStack.Model;
@@ -9,7 +10,13 @@ namespace MemoStack.Repository;
 
 public class MemoContext : DbContext, IRepository
 {
-    private readonly string _dbPath = Path.Join(".", "memo.db");
+#if DEBUG
+    public static readonly string DbDirectory = ".";
+#else
+    public static readonly string DbDirectory =
+        Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), nameof(MemoStack));
+#endif
+    private static readonly string DbPath = Path.Join(DbDirectory, "memo.db");
 
     public DbSet<MemoModel> MemoModels { get; set; } = null!;
 
@@ -37,6 +44,6 @@ public class MemoContext : DbContext, IRepository
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlite($"Data Source={_dbPath}");
+        optionsBuilder.UseSqlite($"Data Source={DbPath}");
     }
 }
