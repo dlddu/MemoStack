@@ -16,11 +16,12 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150" />
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <ListBox Grid.Column="0" ItemsSource="{Binding ObservableStack}" Width="100">
+        <ListBox Grid.Column="0" ItemsSource="{Binding ObservableStack}">
             <ListBox.ItemTemplate>
                 <DataTemplate DataType="{x:Type model:MemoModel}">
                     <Label Content="{Binding Text}" />
@@ -28,7 +29,9 @@
             </ListBox.ItemTemplate>
         </ListBox>
 
-        <Grid Grid.Column="1">
+        <GridSplitter Grid.Column="1" Width="3" ResizeBehavior="PreviousAndCurrent" />
+
+        <Grid Grid.Column="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
